@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Configuração CORS mais segura
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://seu-dominio.com', 'https://www.seu-dominio.com']
+        ? [process.env.API_URL, 'https://plano-nutricional.vercel.app']
         : '*',
     optionsSuccessStatus: 200
 };
@@ -18,8 +18,27 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Servir arquivos estáticos
-app.use(express.static(path.join(__dirname)));
+// Servir arquivos estáticos com cache-control
+app.use(express.static(path.join(__dirname), {
+    maxAge: '1h',
+    setHeaders: (res, path) => {
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+        if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'application/javascript');
+        }
+    }
+}));
+
+// Rotas específicas para arquivos estáticos
+app.get('/style.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'style.css'), {
+        headers: {
+            'Content-Type': 'text/css'
+        }
+    });
+});
 
 // Rotas de exemplo
 app.get('/api/health', (req, res) => {
@@ -48,9 +67,23 @@ app.post('/api/quiz/respostas', (req, res) => {
     });
 });
 
+// Rota para arquivos do quiz
+app.get('/quiz/*', (req, res) => {
+    res.sendFile(path.join(__dirname, req.path));
+});
+
 // Rota padrão para servir o index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Rota para qualquer outro arquivo
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, req.path), (err) => {
+        if (err) {
+            res.status(404).send('Arquivo não encontrado');
+        }
+    });
 });
 
 // Inicia o servidor
