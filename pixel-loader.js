@@ -245,6 +245,15 @@ function testPixelEvents() {
     console.log('Testes do pixel concluídos. Verifique o Facebook Pixel Helper.');
 }
 
+// Eventos de Lead
+function trackLead(leadData = {}) {
+    trackEvent('Lead', {
+        ...leadData,
+        lead_type: 'quiz_start',
+        source: window.location.pathname
+    });
+}
+
 // Exporta todas as funções necessárias
 export {
     initializePixel,
@@ -260,5 +269,6 @@ export {
     trackPlanView,
     trackSubscribe,
     preserveUTMParameters,
-    testPixelEvents
+    testPixelEvents,
+    trackLead
 }; 
