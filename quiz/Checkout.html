@@ -11,43 +11,50 @@
     <meta property="og:url" content="https://seudominio.com/quiz/checkout">
     <title>Checkout Seguro | Queima Definitiva</title>
     <link rel="stylesheet" href="checkout-style.css">
-    <script src="../env.js"></script>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    
+    <!-- Facebook Pixel Code -->
     <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
     </script>
+
+    <!-- Carrega config.js primeiro -->
+    <script src="/quiz/config.js"></script>
+    <!-- Depois carrega o pixel-loader.js -->
     <script type="module">
-        import { initializePixel, trackPlanView, trackAddToCart, trackPurchase } from '../pixel-loader.js';
+        import { initializePixel, trackPlanView, trackAddToCart, trackPurchase, trackViewContent } from '/pixel-loader.js';
         
-        window.addEventListener('fb:loaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             initializePixel();
+            trackViewContent('Checkout', 'checkout');
             
             // Rastreia visualização dos planos
             document.querySelectorAll('.plan-card').forEach(plan => {
                 const planType = plan.querySelector('h3').textContent;
                 const price = plan.querySelector('.current').textContent.replace('R$ ', '').replace(',', '.');
-                trackPlanView(planType, price);
+                trackPlanView(planType, parseFloat(price));
             });
-        });
-        
-        // Rastreia cliques nos botões de plano
-        document.querySelectorAll('.plan-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const planCard = e.target.closest('.plan-card');
-                const planType = planCard.querySelector('h3').textContent;
-                const price = planCard.querySelector('.current').textContent.replace('R$ ', '').replace(',', '.');
-                
-                // Rastreia adição ao carrinho
-                trackAddToCart(price, planType);
-                
-                // Rastreia compra
-                trackPurchase(price, planType);
+            
+            // Rastreia cliques nos botões de plano
+            document.querySelectorAll('.plan-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const planCard = e.target.closest('.plan-card');
+                    const planType = planCard.querySelector('h3').textContent;
+                    const price = planCard.querySelector('.current').textContent.replace('R$ ', '').replace(',', '.');
+                    
+                    // Rastreia adição ao carrinho
+                    trackAddToCart(parseFloat(price), planType);
+                    
+                    // Rastreia compra
+                    trackPurchase(parseFloat(price), planType);
+                });
             });
         });
     </script>

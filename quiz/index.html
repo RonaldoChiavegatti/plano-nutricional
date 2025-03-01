@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="description" content="Descubra seu programa personalizado de emagrecimento e comece sua transformação hoje.">
+    <meta name="keywords" content="emagrecimento, dieta personalizada, perda de peso">
+    <meta property="og:title" content="Queima Definitiva - Programa Personalizado de Emagrecimento">
+    <meta property="og:description" content="Mais de 54.698 mulheres já transformaram suas vidas com o Queima Definitiva.">
+    <meta property="og:image" content="../assets/logo.png">
+    <meta property="og:url" content="https://seudominio.com/quiz">
     <title>Queima Definitiva</title>
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    </script>
+
+    <!-- Carrega config.js primeiro -->
+    <script src="/quiz/config.js"></script>
+    <!-- Depois carrega o pixel-loader.js -->
+    <script type="module">
+        import { initializePixel, trackViewContent, trackLead } from '/pixel-loader.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePixel();
+            trackViewContent('Página Inicial', 'home');
+            
+            // Configura o evento de clique no botão
+            const continueButton = document.querySelector('.continue-button');
+            if (continueButton) {
+                continueButton.addEventListener('click', () => {
+                    trackLead();
+                });
+            }
+        });
+    </script>
+
     <style>
         body {
             font-family: sans-serif;
@@ -82,51 +121,6 @@
             display: block;
         }
     </style>
-    <!-- Primeiro carregamos o env.js -->
-    <script src="../env.js"></script>
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-    </script>
-    
-    <!-- Remover importação duplicada e unificar em um único script -->
-    <script type="module">
-        import { initializePixel, loadFacebookPixel } from '../pixel-loader.js';
-        
-        // Aguarda o carregamento do DOM e das variáveis de ambiente
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.env?.FACEBOOK_PIXEL_ID) {
-                loadFacebookPixel();
-            } else {
-                console.error('ID do Facebook Pixel não encontrado');
-            }
-        });
-
-        // Configura o evento de clique no botão
-        document.addEventListener('DOMContentLoaded', () => {
-            const continueButton = document.querySelector('.continue-button');
-            if (continueButton) {
-                continueButton.addEventListener('click', () => {
-                    console.log('Botão clicado');
-                    if (window.fbq) {
-                        fbq('track', 'Lead');
-                    }
-                });
-            }
-        });
-
-        // Adiciona listener para quando o script do Facebook carregar
-        window.addEventListener('fb:loaded', () => {
-            initializePixel();
-        });
-    </script>
 </head>
 <body>
     <header>

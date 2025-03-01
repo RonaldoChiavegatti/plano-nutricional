@@ -11,53 +11,53 @@
     <meta property="og:url" content="https://seudominio.com/quiz/play">
     <title>Quiz Personalizado | Queima Definitiva</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
     
     <!-- Carregamento dos scripts em ordem -->
     <script src="../env.js" defer></script>
     
     <!-- Facebook Pixel Code -->
     <script>
-        // Verifica se o fbq já existe antes de inicializar
-        if (!window.fbq) {
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
             if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
             n.queue=[];t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        }
-        
-        // Dispara o evento apenas quando o script do Facebook estiver carregado
-        window.fbAsyncInit = function() {
-            window.dispatchEvent(new Event('fb:loaded'));
-        };
+            s.parentNode.insertBefore(t,s);
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=${window.FB_PIXEL_ID}&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Facebook Pixel Code -->
 
+    <!-- Carrega config.js primeiro -->
+    <script src="/quiz/config.js"></script>
+    <!-- Depois carrega o pixel-loader.js -->
     <script type="module">
-        // Corrigir o caminho para apontar para a raiz do projeto
-        import { initializePixel, trackQuizComplete } from '../pixel-loader.js';
+        import { initializePixel, trackQuizProgress, trackQuizComplete, trackViewContent } from '/pixel-loader.js';
         
-        // Garante que o módulo seja carregado apenas uma vez
-        let pixelInitialized = false;
-        
-        window.addEventListener('fb:loaded', () => {
-            if (!pixelInitialized) {
-                initializePixel();
-                pixelInitialized = true;
+        // Inicializa o pixel quando o documento estiver pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePixel();
+            trackViewContent('Quiz em Andamento', 'quiz');
+            
+            // Monitora progresso do quiz
+            const progressElement = document.querySelector('.quiz-progress');
+            if (progressElement) {
+                const [current, total] = progressElement.textContent.split('/').map(Number);
+                trackQuizProgress(current, total);
             }
+
+            // Monitora cliques no botão próximo
+            document.getElementById('next-button')?.addEventListener('click', () => {
+                const progressElement = document.querySelector('.quiz-progress');
+                if (progressElement) {
+                    const [current, total] = progressElement.textContent.split('/').map(Number);
+                    trackQuizProgress(current, total);
+                }
+            });
         });
-        
-        // Expõe a função trackQuizComplete apenas se ainda não estiver definida
-        if (!window.trackQuizComplete) {
-            window.trackQuizComplete = trackQuizComplete;
-        }
+
+        // Expõe função para o script.js usar
+        window.trackQuizComplete = trackQuizComplete;
     </script>
 </head>
 <body>
