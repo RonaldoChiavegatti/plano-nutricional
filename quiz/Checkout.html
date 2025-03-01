@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Garanta agora seu programa personalizado de emagrecimento com 84% de desconto e garantia de 7 dias.">
+    <meta name="keywords" content="programa emagrecimento, plano personalizado, perda de peso garantida">
+    <meta property="og:title" content="Programa Personalizado de Emagrecimento - Checkout">
+    <meta property="og:description" content="Aproveite esta oferta especial por tempo limitado e comece sua transformação hoje mesmo!">
+    <meta property="og:image" content="../assets/logo.png">
+    <meta property="og:url" content="https://seudominio.com/quiz/checkout">
+    <title>Checkout Seguro | Queima Definitiva</title>
+    <link rel="stylesheet" href="checkout-style.css">
+    <script src="../env.js"></script>
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    </script>
+    <script type="module">
+        import { initializePixel, trackPlanView, trackAddToCart, trackPurchase } from '../pixel-loader.js';
+        
+        window.addEventListener('fb:loaded', () => {
+            initializePixel();
+            
+            // Rastreia visualização dos planos
+            document.querySelectorAll('.plan-card').forEach(plan => {
+                const planType = plan.querySelector('h3').textContent;
+                const price = plan.querySelector('.current').textContent.replace('R$ ', '').replace(',', '.');
+                trackPlanView(planType, price);
+            });
+        });
+        
+        // Rastreia cliques nos botões de plano
+        document.querySelectorAll('.plan-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const planCard = e.target.closest('.plan-card');
+                const planType = planCard.querySelector('h3').textContent;
+                const price = planCard.querySelector('.current').textContent.replace('R$ ', '').replace(',', '.');
+                
+                // Rastreia adição ao carrinho
+                trackAddToCart(price, planType);
+                
+                // Rastreia compra
+                trackPurchase(price, planType);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="./play.html">
+                <img src="../assets/logo.png" alt="Queima Definitiva">
+            </a>
+        </div>
+        <div class="header-offer">
+            <div class="offer-text">
+                <p>Aproveite a oferta de 87%</p>
+                <p>pelos próximos minutos</p>
+            </div>
+            <div class="header-timer">
+                <div class="time">
+                    <span id="header-minutes">09</span>:<span id="header-seconds">52</span>
+                </div>
+                <span class="unit">minutos segundos</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="checkout-container">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1><span id="userName">Ro</span>, seu plano<br>personalizado está pronto</h1>
+                    <p>Dependendo dos seus resultados, esta é a nossa oferta só para você.</p>
+                    <button class="find-plan-button" onclick="scrollToPlans()">Encontre seu plano</button>
+                </div>
+                <div class="social-proof">
+                    <img src="../assets/provas-sociais.webp" alt="Resultados reais dos nossos alunos">
+                </div>
+            </div>
+            <div class="goals-section">
+                <h2>Seus objetivos são nossos objetivos</h2>
+                <div class="goals-cards">
+                    <div class="goal-card">
+                        <h3>Meu peso atual</h3>
+                        <p>Seu peso atual é de <span id="currentWeight">80</span> kg</p>
+                    </div>
+                    <div class="goal-indicator">
+                        <span class="percentage">-14%</span>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="goal-card">
+                        <h3>Meu peso ideal</h3>
+                        <p>Seu peso ideal é de <span id="targetWeight">70</span> kg</p>
+                    </div>
+                </div>
+                <div class="bmi-card">
+                    <h3>Meu IMC</h3>
+                    <p>Meu IMC é de <span id="bmiValue">28</span>.</p>
+                    <img src="../assets/imc.webp" alt="Gráfico de IMC" class="bmi-chart">
+                </div>
+            </div>
+            <div class="program-details">
+                <h2>Detalhes do Seu Programa para Perder<br>Peso do Queima Definitiva</h2>
+                <p class="subtitle">Veja o que você vai receber no seu programa personalizado para perder peso:</p>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Programa Nutricional Personalizado de 30 dias, 3 meses ou 6 meses, para perder peso, de acordo com o plano do aplicativo escolhido</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Controle Diário de Peso para Monitorar os resultados da sua Dieta</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Método Seca Express, um ritual antes de dormir para Desinchar nas próximas 48 horas</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Dieta Cetogênica de 4 Refeições Diárias</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Guia de Jejum Intermitente para Usar Durante sua Dieta</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Lista de Compras Semanal para Sua Dieta Personalizada de acordo com seu Objetivo</span>
+                    </div>
+                    <div class="feature-item bonus">
+                        <span class="check">🎁</span>
+                        <span>BÔNUS 1 - Programa Zero Flacidez Para Tonificar Seu Corpo e Deixar seu BumBum Durinho</span>
+                    </div>
+                    <div class="feature-item bonus">
+                        <span class="check">🎁</span>
+                        <span>BÔNUS 2 - Protocolo Anti Estrias: Receitas Naturais de 7 Poderosas Loções Contra Estrias</span>
+                    </div>
+                    <div class="feature-item bonus">
+                        <span class="check">🎁</span>
+                        <span>BÔNUS 3 - Coquetel Anti Varizes: Modo de Preparação Passo A Passos</span>
+                    </div>
+                    <div class="feature-item bonus">
+                        <span class="check">🔥</span>
+                        <span>BÔNUS ESPECIAL - Home Fitness: Curso em Vídeo Aulas Para Treinar em Casa Sem Equipamentos</span>
+                    </div>
+                </div>
+            </div>
+            <div class="plans-section" id="plans-section">
+                <h2>Nossos planos</h2>
+                <p class="subtitle">Oferecemos nossos planos sob medida para você</p>
+                
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <h3>30 DIAS - APP QUEIMA DEFINITIVA:</h3>
+                        <p class="plan-description">DIETA CETOGÊNICA PERSONALIZADA + PROGRAMA DE EXERCÍCIOS + TODOS OS BENEFÍCIOS.</p>
+                        <div class="plan-price">
+                            <div class="original">de R$ 54 por</div>
+                            <div class="current">R$ 27,00</div>
+                            <div class="discount">50% OFF</div>
+                        </div>
+                        <a href="#" class="plan-button">Quero esse!</a>
+                    </div>
+                    
+                    <div class="plan-card featured">
+                        <h3>6 MESES - APP QUEIMA DEFINITIVA:</h3>
+                        <p class="plan-description">DIETA CETOGÊNICA PERSONALIZADA + PROGRAMA DE EXERCÍCIOS + TODOS OS BENEFÍCIOS.</p>
+                        <div class="plan-price">
+                            <div class="original">de R$ 362 por</div>
+                            <div class="current">R$ 47,00</div>
+                            <div class="discount">87% OFF</div>
+                        </div>
+                        <a href="#" class="plan-button">Quero esse!</a>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <h3>3 MESES - APP QUEIMA DEFINITIVA:</h3>
+                        <p class="plan-description">DIETA CETOGÊNICA PERSONALIZADA + PROGRAMA DE EXERCÍCIOS + TODOS OS BENEFÍCIOS.</p>
+                        <div class="plan-price">
+                            <div class="original">de R$ 152 por</div>
+                            <div class="current">R$ 39,90</div>
+                            <div class="discount">75% OFF</div>
+                        </div>
+                        <a href="#" class="plan-button">Quero esse!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-section">
+                <h2>Quem conhece, recomenda!</h2>
+                <div class="testimonials-carousel">
+                    <button class="carousel-arrow prev">←</button>
+                    <div class="testimonials-container">
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-1.jpg" alt="Foto de Ana Souza" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Ana Souza</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">O ketodiet me ajudou a perder 6 quilos em apenas 4 semanas. Seguindo o plano do Queima Definitiva, consegui resultados incríveis sem esforço.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-2.jpeg" alt="Foto de Renata Lima" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Renata Lima</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Com o programa do Queima Total, perdi 8 quilos em 5 semanas. Mais disposição e menos fome, tudo de forma natural.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-3.jpeg" alt="Foto de Mariana Costa" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Mariana Costa</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Seguindo o protocolo do ketodiet, consegui perder 4 quilos em 2 semanas. Fácil de seguir e sem dietas restritivas.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-4.jpg" alt="Foto de Carla Santos" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Carla Santos</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Simplesmente maravilhoso esse serviço. Tem muito conteúdo de valor, e a dieta personalizada do programa quebratotal é maravilhosa. Comprei o plano de 3 meses e estou maravilhada com o resultado.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-5.jpg" alt="Foto de Beatriz Almeida" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Beatriz Almeida</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Emagreci 3 quilos na primeira semana usando o ketodiet. Um método prático e eficaz para quem busca resultados rápidos.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-6.jpg" alt="Foto de Aline Pereira" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Aline Pereira</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Com o plano alimentar do ketodiet, perdi 5 quilos em 3 semanas. Mais energia e menos fome, sem dietas malucas.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-7.jpg" alt="Foto de Mia Silva" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Mia Silva</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Fiquei muito satisfeita com o Queima Definitiva... eu cheguei ao meu peso ideal depois de 8 semanas. realmente a combinação da dieta cetogênica personalizada com os exercícios em casa, fez toda a diferença pra esse resultado. Recomendo!</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-8.jpg" alt="Foto de Maria Fernandes" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Maria Fernandes</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Simplesmente maravilhoso esse aplicativo. Tem muito conteúdo de valor, e a dieta personalizada é maravilhosa. Comprei o plano de 3 meses e estou maravilhada com o resultado.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/photo-9.jpg" alt="Foto de Laura Jimenes" class="user-photo">
+                                <div class="user-info">
+                                    <h3>Laura Jimenes</h3>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Já perdi 12 quilos em apenas 7 semanas. Valeu cada centavo. Gostei muito de todo o programa. É tudo muito bem organizado, tanto os exercícios, quanto o programa nutricional personalizado. Vale muito a pena.</p>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow next">→</button>
+                </div>
+            </div>
+            <div class="faq-section">
+                <h2>O que nossos membros perguntam frequentemente</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            O que acontecerá depois de fazer o pedido?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Após a confirmação do seu pagamento, você receberá um e-mail com suas credenciais de acesso ao aplicativo. Com elas, você poderá acessar imediatamente todo o conteúdo do programa e começar sua transformação.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Quando posso começar a usar o programa?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Você pode começar imediatamente após a confirmação do pagamento. Todo o conteúdo estará disponível para você no aplicativo assim que receber suas credenciais de acesso.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            É adequado para iniciantes?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim! O programa é totalmente personalizado e adaptado ao seu nível de experiência. Oferecemos orientações detalhadas e suporte para garantir que você alcance seus objetivos independente do seu nível atual.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Você tem um aplicativo?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim! Temos um aplicativo completo disponível para Android e iOS, onde você terá acesso a todo o conteúdo do programa, incluindo suas dietas personalizadas e exercícios.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            É fácil cancelar sem custos?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim! Oferecemos garantia de 7 dias. Se você não estiver satisfeito por qualquer motivo, basta nos contatar dentro deste período que faremos o reembolso integral do seu investimento.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            O que ganho quando faço o pedido?
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Você recebe acesso completo ao programa, incluindo dieta personalizada, plano de exercícios, acompanhamento de progresso e todos os bônus exclusivos mencionados acima. Tudo isso através do nosso aplicativo fácil de usar.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Garantia de devolução do dinheiro em 7 dias
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Oferecemos garantia total de satisfação. Se você não ficar satisfeito com o programa por qualquer motivo, basta nos avisar em até 7 dias após a compra que devolveremos 100% do seu dinheiro, sem questionamentos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="../assets/logo.png" alt="Queima Definitiva">
+            </div>
+            <div class="footer-links">
+                <a href="#">Termos de Serviço</a>
+                <span class="separator">|</span>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <p class="footer-copyright">© 2024 Queima Definitiva. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initCarousel() {
+            const container = document.querySelector('.testimonials-container');
+            const cards = document.querySelectorAll('.testimonial-card');
+            const prevButton = document.querySelector('.carousel-arrow.prev');
+            const nextButton = document.querySelector('.carousel-arrow.next');
+            
+            let currentIndex = 0;
+            const cardsPerView = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
+            const maxIndex = Math.ceil(cards.length / cardsPerView) - 1;
+            
+            function updateCarousel(index) {
+                const cardWidth = cards[0].offsetWidth;
+                const gap = 20;
+                const offset = index * (cardWidth * cardsPerView + gap * (cardsPerView - 1));
+                container.scrollTo({ left: offset, behavior: 'smooth' });
+                
+                prevButton.style.visibility = index === 0 ? 'hidden' : 'visible';
+                nextButton.style.visibility = index === maxIndex ? 'hidden' : 'visible';
+            }
+            
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel(currentIndex);
+                }
+            });
+            
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCarousel(currentIndex);
+                }
+            });
+            
+            updateCarousel(0);
+            
+            window.addEventListener('resize', () => {
+                const newCardsPerView = window.innerWidth > 1024 ? 3 : window.innerWidth > 768 ? 2 : 1;
+                if (newCardsPerView !== cardsPerView) {
+                    currentIndex = 0;
+                    updateCarousel(0);
+                }
+            });
+        }
+
+        // Timer countdown
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const headerMinutes = document.getElementById('header-minutes');
+            const headerSeconds = document.getElementById('header-seconds');
+            const offerMinutes = document.getElementById('minutes');
+            const offerSeconds = document.getElementById('seconds');
+
+            function updateTimer() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                // Atualiza timer do header
+                headerMinutes.textContent = minutes;
+                headerSeconds.textContent = seconds;
+                
+                // Atualiza timer da oferta
+                if (offerMinutes && offerSeconds) {
+                    offerMinutes.textContent = minutes;
+                    offerSeconds.textContent = seconds;
+                }
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        function scrollToPlans() {
+            const plansSection = document.getElementById('plans-section');
+            plansSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        window.onload = function() {
+            const quizData = JSON.parse(localStorage.getItem('quizData')) || {};
+            
+            // Atualiza os valores com os dados do quiz
+            document.getElementById('userName').textContent = quizData.name || 'Visitante';
+            document.getElementById('currentWeight').textContent = quizData.currentWeight || '80';
+            document.getElementById('targetWeight').textContent = quizData.targetWeight || '70';
+            document.getElementById('bmiValue').textContent = quizData.bmi || '28';
+            
+            // Inicia o timer
+            startTimer(600);
+            
+            // Inicializa o carrossel
+            initCarousel();
+        }
+
+        // Adicionar manipulador de FAQ
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const answer = button.nextElementSibling;
+                const arrow = button.querySelector('.arrow');
+                
+                // Fecha todas as outras respostas
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-answer').style.maxHeight = null;
+                        item.querySelector('.arrow').style.transform = 'rotate(0deg)';
+                    }
+                });
+                
+                // Abre/fecha a resposta clicada
+                faqItem.classList.toggle('active');
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    arrow.style.transform = 'rotate(180deg)';
+                } else {
+                    answer.style.maxHeight = null;
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

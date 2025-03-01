@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Queima Definitiva</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            height: 30px;
+        }
+
+        nav button {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2em;
+            text-align: center;
+            color: #555;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .hero button {
+            background-color: #957dad;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 30px;
+            text-decoration: none;
+        }
+
+        .hero button a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+    </style>
+    <!-- Primeiro carregamos o env.js -->
+    <script src="../env.js"></script>
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    </script>
+    
+    <!-- Remover importação duplicada e unificar em um único script -->
+    <script type="module">
+        import { initializePixel, loadFacebookPixel } from '../pixel-loader.js';
+        
+        // Aguarda o carregamento do DOM e das variáveis de ambiente
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.env?.FACEBOOK_PIXEL_ID) {
+                loadFacebookPixel();
+            } else {
+                console.error('ID do Facebook Pixel não encontrado');
+            }
+        });
+
+        // Configura o evento de clique no botão
+        document.addEventListener('DOMContentLoaded', () => {
+            const continueButton = document.querySelector('.continue-button');
+            if (continueButton) {
+                continueButton.addEventListener('click', () => {
+                    console.log('Botão clicado');
+                    if (window.fbq) {
+                        fbq('track', 'Lead');
+                    }
+                });
+            }
+        });
+
+        // Adiciona listener para quando o script do Facebook carregar
+        window.addEventListener('fb:loaded', () => {
+            initializePixel();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../assets/logo.png" alt="Queima Definitiva">
+            </a>
+        </div>
+        <nav>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>+ de 54.698 mulheres escolheram o Queima Definitiva</h1>
+            <img src="../assets/women-collage.webp" alt="Queima Definitiva Results">
+            <a href="play.html"><button class="continue-button">CONTINUAR</button></a>
+        </section>
+    </main>
+</body>
+</html>

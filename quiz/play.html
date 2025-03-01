@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responda nosso questionário personalizado e descubra o programa ideal para atingir seus objetivos de emagrecimento.">
+    <meta name="keywords" content="quiz emagrecimento, programa personalizado, perda de peso">
+    <meta property="og:title" content="Quiz Personalizado - Queima Definitiva">
+    <meta property="og:description" content="Descubra seu programa personalizado de emagrecimento respondendo algumas perguntas simples.">
+    <meta property="og:image" content="../assets/logo.png">
+    <meta property="og:url" content="https://seudominio.com/quiz/play">
+    <title>Quiz Personalizado | Queima Definitiva</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Carregamento dos scripts em ordem -->
+    <script src="../env.js" defer></script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        // Verifica se o fbq já existe antes de inicializar
+        if (!window.fbq) {
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        }
+        
+        // Dispara o evento apenas quando o script do Facebook estiver carregado
+        window.fbAsyncInit = function() {
+            window.dispatchEvent(new Event('fb:loaded'));
+        };
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=${window.FB_PIXEL_ID}&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <script type="module">
+        // Corrigir o caminho para apontar para a raiz do projeto
+        import { initializePixel, trackQuizComplete } from '../pixel-loader.js';
+        
+        // Garante que o módulo seja carregado apenas uma vez
+        let pixelInitialized = false;
+        
+        window.addEventListener('fb:loaded', () => {
+            if (!pixelInitialized) {
+                initializePixel();
+                pixelInitialized = true;
+            }
+        });
+        
+        // Expõe a função trackQuizComplete apenas se ainda não estiver definida
+        if (!window.trackQuizComplete) {
+            window.trackQuizComplete = trackQuizComplete;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="back-button">&lt Back</div>
+        <div class="quiz-progress">1/33</div>
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../assets/logo.png" alt="Queima Definitiva">
+            </a>
+        </div>
+    </header>
+
+    <div id="progress-bar"></div>
+
+    <main>
+        <section class="quiz">
+            <h1 class="question">Qual é o seu objetivo principal?</h1>
+            <div class="answer-options">
+                <div class="answer-option">
+                    <input type="checkbox" id="perder-peso" name="question4" value="perder-peso">
+                    <div class="answer-option-text">
+                        <span class="answer-option-title">Perder Peso</span>
+                        <span class="answer-option-description">Comece a queimar calorias e a derreter gordura</span>
+                    </div>
+                </div>
+                <div class="answer-option">
+                    <input type="checkbox" id="ficar-forte" name="question4" value="ficar-forte">
+                    <div class="answer-option-text">
+                        <span class="answer-option-title">Ficar Forte</span>
+                        <span class="answer-option-description">Corpo forte, tonificado e saudável</span>
+                    </div>
+                </div>
+                <div class="answer-option">
+                    <input type="checkbox" id="desenvolver-habito" name="question4" value="desenvolver-habito">
+                    <div class="answer-option-text">
+                        <span class="answer-option-title">Desenvolver Hábito</span>
+                        <span class="answer-option-description">Diga não aos desejos por comida</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <button id="next-button" style="display: none;">PRÓXIMO PASSO</button>
+    </main>
+    
+    <!-- Carrega o script principal por último e com defer -->
+    <script src="script.js" defer></script>
+</body>
+</html>

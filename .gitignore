@@ -1,0 +1,20 @@
+# ... outros arquivos ignorados ...
+quiz/config.js 
+
+# Arquivos de configuração
+.env
+
+# Arquivos de desenvolvimento
+node_modules/
+dist/
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração sensíveis
+config.js
+.env.*
+*.min.js
+*.min.css 

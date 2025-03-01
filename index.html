@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plano nutricional personalizado para perda de peso. Descubra um programa adaptado à sua idade e IMC em apenas 1 minuto.">
+    <meta name="keywords" content="plano nutricional, perda de peso, emagrecimento, dieta personalizada, IMC">
+    <meta property="og:title" content="Plano Nutricional Personalizado para Perda de Peso">
+    <meta property="og:description" content="Descubra um plano nutricional personalizado baseado na sua idade e IMC. Comece sua transformação hoje!">
+    <meta property="og:image" content="assets/logo.png">
+    <meta property="og:url" content="https://seudominio.com">
+    <title>Plano Nutricional Personalizado | Queima Definitiva</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        // Definir FB_PIXEL_ID globalmente
+        window.FB_PIXEL_ID = '1980192355803079'; // ID real do pixel
+
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+            // Dispara evento quando o script do Facebook for carregado
+            t.onload = function() {
+                window.dispatchEvent(new Event('fb:loaded'));
+            };
+        }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    </script>
+    <!-- End Facebook Pixel Code -->
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- Removendo a importação do env.js que não é mais necessária -->
+    <script src="config.js" type="module"></script>
+    <script src="pixel-loader.js" type="module" defer></script>
+</head>
+<body>
+    <header>
+        <img src="assets/logo.png" alt="Logo" class="logo">
+    </header>
+
+    <main>
+        <h1>PLANO NUTRICIONAL PERSONALIZADO PARA PERDA DE PESO</h1>
+        <p>DE ACORDO COM SUA IDADE E IMC</p>
+        <p class="quiz-time">QUIZ DE 1-MINUTO</p>
+
+        <div class="age-selection">
+            <div class="age-group">
+                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '18-29'})">  
+                    <img src="assets/age-18-29.png" alt="Idade: 18-29">
+                    <button>Idade: 18-29 ></button>
+                </a>
+            </div>
+            <div class="age-group">
+                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '30-39'})">
+                    <img src="assets/age-30-39.png" alt="Idade: 30-39">
+                    <button>Idade: 30-39 ></button>
+                </a>
+            </div>
+            <div class="age-group">
+                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '40-49'})">
+                    <img src="assets/age-40-49.png" alt="Idade: 40-49">
+                    <button>Idade: 40-49 ></button>
+                </a>
+            </div>
+            <div class="age-group">
+                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '50+'})">
+                    <img src="assets/age-50-plus.png" alt="Idade: 50+">
+                    <button>Idade: 50+ ></button>
+                </a>
+            </div>
+        </div>
+
+        <p>Ao escolher sua idade e continuar, você concorda com nossos <a href="#">Termos de Serviço</a> | <a href="#">Política de Privacidade</a></p>
+        <p>Leia antes de continuar</p>
+    </main>
+</body>
+</html>

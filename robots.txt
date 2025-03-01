@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /quiz/
+Disallow: /quiz/config.js
+Disallow: /quiz/pixel-loader.js
+Disallow: /assets/ 
