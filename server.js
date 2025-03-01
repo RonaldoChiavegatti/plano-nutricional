@@ -70,6 +70,8 @@ app.get('/quiz/config.js', (req, res) => {
             pixelId: '${process.env.FACEBOOK_PIXEL_ID}',
             apiUrl: '${process.env.API_URL}'
         };
+        // Dispara evento quando o config for carregado
+        window.dispatchEvent(new Event('config:loaded'));
     `;
     res.type('application/javascript');
     res.send(configScript);

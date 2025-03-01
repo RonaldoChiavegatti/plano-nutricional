@@ -37,8 +37,15 @@ function trackEvent(eventName, params = {}) {
 
     try {
         const utmParams = getUTMParameters();
-        fbq('track', eventName, { ...params, ...utmParams });
-        console.log(`Evento ${eventName} rastreado:`, { ...params, ...utmParams });
+        const eventParams = { ...params, ...utmParams };
+        
+        // Adiciona informações da página atual
+        eventParams.page_title = document.title;
+        eventParams.page_url = window.location.href;
+        eventParams.page_path = window.location.pathname;
+
+        fbq('track', eventName, eventParams);
+        console.log(`Evento ${eventName} rastreado:`, eventParams);
     } catch (error) {
         console.error(`Erro ao rastrear evento ${eventName}:`, error);
     }
@@ -46,26 +53,89 @@ function trackEvent(eventName, params = {}) {
 
 // Inicialização do pixel
 export function initializePixel() {
-    if (pixelState.initialized || !window.env?.FACEBOOK_PIXEL_ID) {
+    if (pixelState.initialized) {
         return;
     }
 
     try {
-        fbq('init', window.env.FACEBOOK_PIXEL_ID);
-        fbq('track', 'PageView');
-        pixelState.initialized = true;
-        console.log('Pixel inicializado com sucesso:', window.env.FACEBOOK_PIXEL_ID);
-        
-        // Rastreia eventos específicos baseados na página atual
-        const currentPage = window.location.pathname;
-        if (currentPage.includes('play.html')) {
-            trackQuizStart();
-        } else if (currentPage.includes('Checkout.html')) {
-            trackCheckout();
+        // Aguarda o carregamento do config.js
+        if (window.config && window.config.pixelId) {
+            fbq('init', window.config.pixelId);
+            fbq('track', 'PageView');
+            pixelState.initialized = true;
+            console.log('Pixel inicializado com sucesso:', window.config.pixelId);
+            
+            // Configura rastreamento automático
+            setupAutoTracking();
+        } else {
+            // Se config não estiver disponível, aguarda o evento
+            window.addEventListener('config:loaded', () => {
+                if (window.config && window.config.pixelId) {
+                    fbq('init', window.config.pixelId);
+                    fbq('track', 'PageView');
+                    pixelState.initialized = true;
+                    console.log('Pixel inicializado com sucesso:', window.config.pixelId);
+                    
+                    // Configura rastreamento automático
+                    setupAutoTracking();
+                }
+            });
         }
     } catch (error) {
         console.error('Erro ao inicializar o pixel:', error);
     }
+}
+
+// Configuração de rastreamento automático
+function setupAutoTracking() {
+    // Rastreia cliques em botões
+    document.addEventListener('click', (e) => {
+        const button = e.target.closest('button, .button, [role="button"]');
+        if (button) {
+            trackEvent('ButtonClick', {
+                button_text: button.textContent.trim(),
+                button_type: button.type || 'button',
+                button_id: button.id || ''
+            });
+        }
+    });
+
+    // Rastreia envios de formulário
+    document.addEventListener('submit', (e) => {
+        if (e.target.tagName === 'FORM') {
+            trackEvent('FormSubmit', {
+                form_id: e.target.id || '',
+                form_action: e.target.action || ''
+            });
+        }
+    });
+
+    // Rastreia tempo na página
+    let timeOnPage = 0;
+    const timeInterval = setInterval(() => {
+        timeOnPage += 30;
+        if (timeOnPage <= 180) { // Rastreia até 3 minutos
+            trackEvent('TimeOnPage', {
+                seconds: timeOnPage
+            });
+        } else {
+            clearInterval(timeInterval);
+        }
+    }, 30000); // A cada 30 segundos
+
+    // Rastreia rolagem da página
+    let maxScroll = 0;
+    window.addEventListener('scroll', () => {
+        const scrollPercentage = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+        if (scrollPercentage > maxScroll) {
+            maxScroll = scrollPercentage;
+            if (maxScroll >= 25 && maxScroll % 25 === 0) { // 25%, 50%, 75%, 100%
+                trackEvent('ScrollDepth', {
+                    scroll_percentage: maxScroll
+                });
+            }
+        }
+    });
 }
 
 // Eventos do Quiz
@@ -176,4 +246,19 @@ export function testPixelEvents() {
 }
 
 // Exporta a função de inicialização como loadFacebookPixel para compatibilidade
-export { initializePixel as loadFacebookPixel }; 
+export { initializePixel as loadFacebookPixel };
+
+// Exporta as funções necessárias
+export {
+    trackEvent,
+    trackQuizStart,
+    trackQuizComplete,
+    trackQuizProgress,
+    trackCheckout,
+    trackPurchase,
+    trackAddToCart,
+    trackViewContent,
+    trackPlanView,
+    trackSubscribe,
+    preserveUTMParameters
+}; 

@@ -13,9 +13,6 @@
     
     <!-- Facebook Pixel Code -->
     <script>
-        // Definir FB_PIXEL_ID globalmente
-        window.FB_PIXEL_ID = '1980192355803079'; // ID real do pixel
-
         !function(f,b,e,v,n,t,s) {
             if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -23,10 +20,6 @@
             n.queue=[];t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s);
-            // Dispara evento quando o script do Facebook for carregado
-            t.onload = function() {
-                window.dispatchEvent(new Event('fb:loaded'));
-            };
         }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
     </script>
     <!-- End Facebook Pixel Code -->
@@ -34,9 +27,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     
-    <!-- Removendo a importação do env.js que não é mais necessária -->
-    <script src="config.js" type="module"></script>
-    <script src="pixel-loader.js" type="module" defer></script>
+    <!-- Carrega config.js primeiro -->
+    <script src="/quiz/config.js"></script>
+    <!-- Depois carrega o pixel-loader.js -->
+    <script type="module">
+        import { initializePixel } from './pixel-loader.js';
+        // Inicializa o pixel quando o documento estiver pronto
+        document.addEventListener('DOMContentLoaded', initializePixel);
+    </script>
 </head>
 <body>
     <header>
