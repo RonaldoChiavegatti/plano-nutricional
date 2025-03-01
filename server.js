@@ -18,18 +18,36 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Servir arquivos estáticos com cache-control
-app.use(express.static(path.join(__dirname), {
+// Configuração de cache para arquivos estáticos
+const cacheControl = {
     maxAge: '1h',
-    setHeaders: (res, path) => {
-        if (path.endsWith('.css')) {
+    setHeaders: (res, filePath) => {
+        // Cache mais longo para imagens
+        if (filePath.match(/\.(jpg|jpeg|png|gif|webp|ico)$/)) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+        // Configuração de tipo de conteúdo
+        if (filePath.endsWith('.css')) {
             res.setHeader('Content-Type', 'text/css');
         }
-        if (path.endsWith('.js')) {
+        if (filePath.endsWith('.js')) {
             res.setHeader('Content-Type', 'application/javascript');
         }
+        if (filePath.match(/\.(jpg|jpeg)$/)) {
+            res.setHeader('Content-Type', 'image/jpeg');
+        }
+        if (filePath.endsWith('.png')) {
+            res.setHeader('Content-Type', 'image/png');
+        }
+        if (filePath.endsWith('.webp')) {
+            res.setHeader('Content-Type', 'image/webp');
+        }
     }
-}));
+};
+
+// Servir arquivos estáticos com cache-control
+app.use('/assets', express.static(path.join(__dirname, 'assets'), cacheControl));
+app.use(express.static(path.join(__dirname), cacheControl));
 
 // Rotas específicas para arquivos estáticos
 app.get('/style.css', (req, res) => {
