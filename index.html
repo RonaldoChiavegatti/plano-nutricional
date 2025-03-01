@@ -25,15 +25,26 @@
     <!-- End Facebook Pixel Code -->
 
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" href="assets/logo.png">
     
     <!-- Carrega config.js primeiro -->
     <script src="/quiz/config.js"></script>
     <!-- Depois carrega o pixel-loader.js -->
     <script type="module">
-        import { initializePixel } from './pixel-loader.js';
+        import { initializePixel, trackEvent, trackQuizStart } from '/pixel-loader.js';
+        
         // Inicializa o pixel quando o documento estiver pronto
-        document.addEventListener('DOMContentLoaded', initializePixel);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePixel();
+            
+            // Adiciona event listeners para os botões de idade
+            document.querySelectorAll('.age-group a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const age = link.querySelector('button').textContent.match(/\d+\+?|\d+-\d+/)[0];
+                    trackQuizStart({ age });
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -48,25 +59,25 @@
 
         <div class="age-selection">
             <div class="age-group">
-                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '18-29'})">  
+                <a href="quiz/index.html">  
                     <img src="assets/age-18-29.png" alt="Idade: 18-29">
                     <button>Idade: 18-29 ></button>
                 </a>
             </div>
             <div class="age-group">
-                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '30-39'})">
+                <a href="quiz/index.html">
                     <img src="assets/age-30-39.png" alt="Idade: 30-39">
                     <button>Idade: 30-39 ></button>
                 </a>
             </div>
             <div class="age-group">
-                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '40-49'})">
+                <a href="quiz/index.html">
                     <img src="assets/age-40-49.png" alt="Idade: 40-49">
                     <button>Idade: 40-49 ></button>
                 </a>
             </div>
             <div class="age-group">
-                <a href="quiz/index.html" onclick="trackEvent('StartQuiz', {age: '50+'})">
+                <a href="quiz/index.html">
                     <img src="assets/age-50-plus.png" alt="Idade: 50+">
                     <button>Idade: 50+ ></button>
                 </a>
