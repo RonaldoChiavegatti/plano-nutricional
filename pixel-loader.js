@@ -28,6 +28,26 @@ function getUTMParameters() {
            JSON.parse(localStorage.getItem('utm_params') || '{}');
 }
 
+// Lista de eventos padrão do Facebook
+const STANDARD_FB_EVENTS = [
+    'PageView',
+    'Lead',
+    'CompleteRegistration',
+    'Purchase',
+    'AddToCart',
+    'InitiateCheckout',
+    'ViewContent',
+    'Subscribe',
+    'Contact',
+    'CustomizeProduct',
+    'Donate',
+    'FindLocation',
+    'Schedule',
+    'StartTrial',
+    'SubmitApplication',
+    'Search'
+];
+
 // Função base para rastreamento de eventos
 function trackEvent(eventName, params = {}) {
     if (!window.fbq) {
@@ -44,7 +64,13 @@ function trackEvent(eventName, params = {}) {
         eventParams.page_url = window.location.href;
         eventParams.page_path = window.location.pathname;
 
-        fbq('track', eventName, eventParams);
+        // Usa trackCustom para eventos não padrão
+        if (STANDARD_FB_EVENTS.includes(eventName)) {
+            fbq('track', eventName, eventParams);
+        } else {
+            fbq('trackCustom', eventName, eventParams);
+        }
+        
         console.log(`Evento ${eventName} rastreado:`, eventParams);
     } catch (error) {
         console.error(`Erro ao rastrear evento ${eventName}:`, error);
