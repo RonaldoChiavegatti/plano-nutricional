@@ -52,7 +52,7 @@ function trackEvent(eventName, params = {}) {
 }
 
 // Inicialização do pixel
-export function initializePixel() {
+function initializePixel() {
     if (pixelState.initialized) {
         return;
     }
@@ -139,15 +139,15 @@ function setupAutoTracking() {
 }
 
 // Eventos do Quiz
-export function trackQuizStart() {
+function trackQuizStart() {
     trackEvent('StartQuiz');
 }
 
-export function trackQuizComplete(quizData) {
+function trackQuizComplete(quizData) {
     trackEvent('CompleteQuiz', quizData);
 }
 
-export function trackQuizProgress(step, totalSteps) {
+function trackQuizProgress(step, totalSteps) {
     trackEvent('QuizProgress', {
         step: step,
         total_steps: totalSteps,
@@ -156,11 +156,11 @@ export function trackQuizProgress(step, totalSteps) {
 }
 
 // Eventos de Checkout e Compra
-export function trackCheckout() {
+function trackCheckout() {
     trackEvent('InitiateCheckout');
 }
 
-export function trackPurchase(value, planType) {
+function trackPurchase(value, planType) {
     trackEvent('Purchase', {
         currency: 'BRL',
         value: parseFloat(value),
@@ -170,7 +170,7 @@ export function trackPurchase(value, planType) {
     });
 }
 
-export function trackAddToCart(value, planType) {
+function trackAddToCart(value, planType) {
     trackEvent('AddToCart', {
         currency: 'BRL',
         value: parseFloat(value),
@@ -180,7 +180,7 @@ export function trackAddToCart(value, planType) {
 }
 
 // Eventos de Visualização e Interação
-export function trackViewContent(contentName, contentType = 'product', value = null) {
+function trackViewContent(contentName, contentType = 'product', value = null) {
     const params = {
         content_name: contentName,
         content_type: contentType
@@ -194,7 +194,7 @@ export function trackViewContent(contentName, contentType = 'product', value = n
     trackEvent('ViewContent', params);
 }
 
-export function trackPlanView(planType, planPrice) {
+function trackPlanView(planType, planPrice) {
     trackEvent('PlanView', {
         plan_type: planType,
         price: parseFloat(planPrice),
@@ -202,14 +202,14 @@ export function trackPlanView(planType, planPrice) {
     });
 }
 
-export function trackSubscribe(subscriptionType = 'newsletter') {
+function trackSubscribe(subscriptionType = 'newsletter') {
     trackEvent('Subscribe', {
         subscription_type: subscriptionType
     });
 }
 
 // Função para preservar UTMs entre páginas
-export function preserveUTMParameters(targetUrl) {
+function preserveUTMParameters(targetUrl) {
     const currentUtmParams = new URLSearchParams(window.location.search);
     const hasUtmParams = Array.from(currentUtmParams.keys()).some(key => key.startsWith('utm_'));
     
@@ -228,7 +228,7 @@ export function preserveUTMParameters(targetUrl) {
 }
 
 // Função para teste dos eventos
-export function testPixelEvents() {
+function testPixelEvents() {
     console.log('Iniciando testes do pixel...');
     
     // Testa eventos básicos
@@ -245,11 +245,10 @@ export function testPixelEvents() {
     console.log('Testes do pixel concluídos. Verifique o Facebook Pixel Helper.');
 }
 
-// Exporta a função de inicialização como loadFacebookPixel para compatibilidade
-export { initializePixel as loadFacebookPixel };
-
-// Exporta as funções necessárias
+// Exporta todas as funções necessárias
 export {
+    initializePixel,
+    initializePixel as loadFacebookPixel,
     trackEvent,
     trackQuizStart,
     trackQuizComplete,
@@ -260,5 +259,6 @@ export {
     trackViewContent,
     trackPlanView,
     trackSubscribe,
-    preserveUTMParameters
+    preserveUTMParameters,
+    testPixelEvents
 }; 
